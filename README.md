@@ -26,4 +26,4 @@ cd submit_celestia_pfb
 node main.js
 ```
 
-visit [localhost:4010](localhost:4010) in browser.
+visit [localhost:4000](localhost:4000) in browser.
