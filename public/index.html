@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>PayForPlob celestia</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <header class="header">
+
+<head>
+  <meta charset="utf-8">
+  <title>PayForPlob celestia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<header class="header">
+  <div>
+    <h1>Celestia Blockspacerace </h1>
+  </div>
+</header>
+
+<body>
+  <form id="form" method="post">
     <div>
-      <h1>Celestia Blockspacerace </h1>
+      <label for="data">node active</label>
     </div>
-  </header>
-  <body>
-      <form id="form" method="post">
-        <label for="data" >Data :</label>
-        <input type="textarea" id="data" name="data"/><br />
+    <div>
+      <input type="text" id="namespace_id" name="namespace_id">
+      <label for="data">data :</label>
+      <input type="textarea" id="msg" name="msg" style="min-height: 100px;min-width: 300px;"
+        placeholder="Please type your data" required />
+    </div>
+    <div>
+      <button type="submit" id="submit">submit</button>
+    </div>
+  </form>
+  <div id="transaction_result"></div>
+  <div id="transaction_info"></div>
 
-        <button type="submit" id="submit">submit</button>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
 
-      </form>
+    $(function () {
+      // namespace_id
+      const nBytes = new Uint8Array(8); // 8 random bytes
+      window.crypto.getRandomValues(nBytes);
+      const namespace_id = Array.from(nBytes, (byte) =>
+        byte.toString(16).padStart(2, "0")
+      ).join("");
+      $("#namespace_id").val(namespace_id)
+      console.log(namespace_id)
 
-    <div id="transaction_info"></div>
+      $('#form').submit(function (event) {
+        event.preventDefault();
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-
-      $(function() {
-            $('#form').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    url: '/',
-                    method: 'POST',
-                    data: $(this).serialize(),
-                    success: function(result) {
-                        $('#transaction_info').html("success");
-                    },
-                    error: function(error) {
-                        $('#transaction_info').html("failed");
-                    }
-                });
-            });
+        $.ajax({
+          url: '/',
+          method: 'POST',
+          data: $(this).serialize(),
+          success: function (result) {
+            $('#transaction_result').html("success");
+            $('#transaction_info').html(result);
+          },
+          error: function (error) {
+            $('#transaction_result').html("failed,Please try again!");
+          }
         });
-    </script>
-  </body>
+      });
+    });
+  </script>
+</body>
+
 </html>
