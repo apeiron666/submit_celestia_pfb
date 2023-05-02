@@ -8,20 +8,25 @@
 </head>
 <header class="header">
   <div>
-    <h1>Celestia Blockspacerace </h1>
+    <h1>Submit PFB Transaction </h1>
   </div>
 </header>
 
 <body>
   <form id="form" method="post">
     <div>
-      <label for="data">Please make sure you celestia node be active</label>
+      <label for="data" style="color:brown">Please make sure your celestia node is available</label>
     </div>
-    <div>
-      <input type="text" id="namespace_id" name="namespace_id">
-      <label for="data">data :</label>
-      <input type="textarea" id="msg" name="msg" style="min-height: 100px;min-width: 300px;"
-        placeholder="Please type your data" required />
+    <div style="margin-top: 30px;">
+      <div>
+        <label for="namespace_id">namespace_id:</label>
+        <input type="text" id="namespace_id" name="namespace_id">
+      </div>
+      <div>
+        <label for="data">data :</label>
+        <input type="textarea" id="msg" name="msg" style="min-height: 100px;min-width: 300px;"
+          placeholder="Please type your data" required />
+      </div>
     </div>
     <div>
       <button type="submit" id="submit">submit</button>
@@ -73,7 +78,7 @@
           method: 'POST',
           data: $(this).serialize(),
           success: function (result) {
-            $('#transaction_result').html("success");
+            $('#transaction_result').html("Success");
             const jsonresult=JSON.parse(result)
             $('#height').html(jsonresult["height"]);
             $('#txhash').html("<a target='_blank' href='https://testnet.mintscan.io/celestia-incentivized-testnet/txs/"+jsonresult["txhash"]+"?height="+jsonresult["height"]+"'>"+jsonresult["txhash"]+"</a>");
@@ -81,7 +86,7 @@
             $('#gas_used').html(jsonresult["gas_used"]);
           },
           error: function (error) {
-            $('#transaction_result').html("failed,Please try again!");
+            $('#transaction_result').html("Failed,Please make sure your node is available and try again!");
           }
         });
       });
