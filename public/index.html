@@ -15,7 +15,7 @@
 <body>
   <form id="form" method="post">
     <div>
-      <label for="data">node active</label>
+      <label for="data">Please make sure you celestia node be active</label>
     </div>
     <div>
       <input type="text" id="namespace_id" name="namespace_id">
@@ -28,7 +28,29 @@
     </div>
   </form>
   <div id="transaction_result"></div>
-  <div id="transaction_info"></div>
+  <div id="transaction_info">
+    <div>
+      <label>Height:</label>
+      <span id="height"></span>
+    </div>
+    <div>
+      <label>TxHash:</label>
+      <!-- https://testnet.mintscan.io/celestia-incentivized-testnet/txs/80D8DDF683EB6B49F430FF3C9758AD2DE7A9526B72229B965E8FEAA8A47CB134?height=389613 -->
+      <span><a id="TxHash">asdfasf</a></span>
+    </div>
+    <div>
+      <label>Gas_wanted:</label>
+      <span id="gas_wanted"></span>
+    </div>    
+    <div>
+      <label>Gas_used:</label>
+      <span id="gas_used"></span>
+    </div>    
+    <div>
+      <label></label>
+      <span></span>
+    </div>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -52,7 +74,11 @@
           data: $(this).serialize(),
           success: function (result) {
             $('#transaction_result').html("success");
-            $('#transaction_info').html(result);
+            const jsonresult=JSON.parse(result)
+            $('#height').html(jsonresult["height"]);
+            $('#txhash').html(jsonresult["txhash"]);
+            $('#gas_wanted').html(jsonresult["gas_wanted"]);
+            $('#gas_used').html(jsonresult["gas_used"]);
           },
           error: function (error) {
             $('#transaction_result').html("failed,Please try again!");

@@ -33,8 +33,8 @@ app.post('/', (req, res) => {
         console.log(gas_wanted)
         console.log(gas_used)
         const result = {
-          blockHeight: height,
-          transactionHash: txhash,
+          height: height,
+          txhash: txhash,
           gas_wanted: gas_wanted,
           gas_used: gas_used,
         };
