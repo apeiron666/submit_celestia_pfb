@@ -32,8 +32,8 @@
       <button type="submit" id="submit">submit</button>
     </div>
   </form>
-  <div id="transaction_result"></div>
-  <div id="transaction_info">
+  <div id="transaction_result" class="result"></div>
+  <div id="transaction_info" hidden>
     <div>
       <label>Height:</label>
       <span id="height"></span>
@@ -73,6 +73,8 @@
       $('#form').submit(function (event) {
         event.preventDefault();
 
+        $('#transaction_result').html("Please wait...");
+
         $.ajax({
           url: '/',
           method: 'POST',
@@ -84,6 +86,7 @@
             $('#txhash').html("<a target='_blank' href='https://testnet.mintscan.io/celestia-incentivized-testnet/txs/"+jsonresult["txhash"]+"?height="+jsonresult["height"]+"'>"+jsonresult["txhash"]+"</a>");
             $('#gas_wanted').html(jsonresult["gas_wanted"]);
             $('#gas_used').html(jsonresult["gas_used"]);
+            $('#transaction_info').show();
           },
           error: function (error) {
             $('#transaction_result').html("Failed,Please make sure your node is available and try again!");
