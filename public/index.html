@@ -36,7 +36,7 @@
     <div>
       <label>TxHash:</label>
       <!-- https://testnet.mintscan.io/celestia-incentivized-testnet/txs/80D8DDF683EB6B49F430FF3C9758AD2DE7A9526B72229B965E8FEAA8A47CB134?height=389613 -->
-      <span><a id="TxHash">asdfasf</a></span>
+      <span id="txhash"></span>
     </div>
     <div>
       <label>Gas_wanted:</label>
@@ -76,7 +76,7 @@
             $('#transaction_result').html("success");
             const jsonresult=JSON.parse(result)
             $('#height').html(jsonresult["height"]);
-            $('#txhash').html(jsonresult["txhash"]);
+            $('#txhash').html("<a target='_blank' href='https://testnet.mintscan.io/celestia-incentivized-testnet/txs/"+jsonresult["txhash"]+"?height="+jsonresult["height"]+"'>"+jsonresult["txhash"]+"</a>");
             $('#gas_wanted').html(jsonresult["gas_wanted"]);
             $('#gas_used').html(jsonresult["gas_used"]);
           },
